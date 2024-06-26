@@ -51,6 +51,7 @@ void MenuOptions()
             RateBands();
             break;
         case 4:
+            ShowRating();
             break;
     }
 
@@ -118,6 +119,47 @@ void RateBands()
     bandList[name].Add(rate);
     Console.WriteLine($"\nA banda {name} foi avaliada com a nota {rate}");
     Thread.Sleep(2000);
+    Console.Clear();
+    MenuOptions();
+
+}
+
+void ShowRating()
+{
+    Console.Clear();
+    Console.WriteLine(@"
+█▄░█ █▀█ ▀█▀ ▄▀█ █▀
+█░▀█ █▄█ ░█░ █▀█ ▄█
+    ");
+    Console.Write("\nDigite o nome da banda que deseja exibir as notas: ");
+    string name = Console.ReadLine()!;
+    if (!bandList.ContainsKey(name))
+    {
+        Console.WriteLine($"A banda {name} não foi encontrada");
+        Thread.Sleep(2000);
+        Console.Clear();
+        MenuOptions();
+        return;
+    }
+
+    Console.WriteLine($"\nNotas da banda {name}:");
+    int sum = 0;
+    foreach (var rate in bandList[name])
+    {
+        sum += rate;
+        Console.Write(rate + ", ");
+    }
+    float average;
+    if (bandList[name].Count == 0)
+    {
+        average = 0;
+    }
+    else
+    {
+        average = sum / bandList[name].Count;
+    }
+    Console.WriteLine($"\nA média das notas da banda {name} é: {average}");
+    Console.ReadKey();
     Console.Clear();
     MenuOptions();
 
