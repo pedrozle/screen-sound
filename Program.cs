@@ -1,6 +1,12 @@
 ﻿// Screen Sound
 
-List<string> bandList = new List<string> { "U2", "The Beatles" };
+// List<string> bandList = new List<string> { "U2", "The Beatles" };
+
+Dictionary<string, List<int>> bandList = new Dictionary<string, List<int>>
+{
+    { "Linkin Park", new List<int>{10, 9, 8} },
+    { "The Beatles", new List<int>() },
+};
 
 static void ShowLogo()
 {
@@ -42,6 +48,7 @@ void MenuOptions()
             ShowBands();
             break;
         case 3:
+            RateBands();
             break;
         case 4:
             break;
@@ -59,7 +66,7 @@ void Register()
 
     Console.Write("Digite o nome da banda que deseja registrar: ");
     string name = Console.ReadLine()!;
-    bandList.Add(name);
+    bandList.Add(name, new List<int>());
     Console.WriteLine($"A banda foi {name} registrada com sucesso");
     Thread.Sleep(2000);
     Console.Clear();
@@ -74,13 +81,46 @@ void ShowBands()
 █▀▀ ▀▄▀ █ █▄▄ █ █▀█
 ██▄ █░█ █ █▄█ █ █▀▄
     ");
-    for (int i = 0; i < bandList.Count; i++)
+
+    foreach (var band in bandList)
     {
-        Console.WriteLine($"Banda: {bandList[i]}");
+        Console.WriteLine($"Banda: {band.Key}");
     }
+
     Console.ReadKey();
     Console.Clear();
     MenuOptions();
+}
+
+void RateBands()
+{
+
+    Console.Clear();
+    Console.WriteLine(@"
+▄▀█ █░█ ▄▀█ █░░ █ ▄▀█ █▀█   █▄▄ ▄▀█ █▄░█ █▀▄ ▄▀█ █▀
+█▀█ ▀▄▀ █▀█ █▄▄ █ █▀█ █▀▄   █▄█ █▀█ █░▀█ █▄▀ █▀█ ▄█
+    ");
+    Console.Write("\nDigite o nome da banda que deseja avaliar: ");
+    string name = Console.ReadLine()!;
+
+    if (!bandList.ContainsKey(name))
+    {
+        Console.WriteLine($"A banda {name} não foi encontrada");
+        Thread.Sleep(2000);
+        Console.Clear();
+        MenuOptions();
+        return;
+    }
+
+    Console.Write($"\nDigite a nota da banda {name}:");
+    int rate = int.Parse(Console.ReadLine()!);
+
+    bandList[name].Add(rate);
+    Console.WriteLine($"\nA banda {name} foi avaliada com a nota {rate}");
+    Thread.Sleep(2000);
+    Console.Clear();
+    MenuOptions();
+
 }
 
 MenuOptions();
