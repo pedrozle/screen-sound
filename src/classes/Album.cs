@@ -5,7 +5,7 @@ namespace ScreenSound
 
         private readonly List<Music> MusicCollection = [];
 
-        private string Name { get; set; } = albumName;
+        public string Name { get;} = albumName;
 
         private string Artist { get; set; } = artist;
 
