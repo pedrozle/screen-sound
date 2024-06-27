@@ -1,21 +1,12 @@
 namespace ScreenSound
 {
-    class Music
+    class Music(string name, string artist, string album, int duration, bool available)
     {
-        public string Name { get; }
-        public string Artist { get; }
-        public string Album { get; }
-        public int Duration { get; }
-        public bool Available { get; }
-
-        public Music(string name, string artist, string album, int duration, bool available)
-        {
-            Name = name;
-            Artist = artist;
-            Album = album;
-            Duration = duration;
-            Available = available;
-        }
+        public string Name { get; } = name;
+        public string Artist { get; } = artist;
+        public string Album { get; } = album;
+        public int Duration { get; } = duration;
+        public bool Available { get; } = available;
 
         override public string ToString()
         {
