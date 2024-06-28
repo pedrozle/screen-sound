@@ -1,7 +1,20 @@
 ﻿// Screen Sound
 
+using ScreenSound.DB;
 using ScreenSound.Menus;
 using ScreenSound.Models;
+
+try
+{
+    using var connection = new Connection().GetConnection();
+    connection.Open();
+    Console.WriteLine(connection.State);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+return;
 
 Artist linkinPark = new("Linkin Park");
 linkinPark.RateArtist(10);
