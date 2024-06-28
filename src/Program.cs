@@ -1,6 +1,7 @@
 ﻿// Screen Sound
 
-using ScreenSound;
+using ScreenSound.Menus;
+using ScreenSound.Models;
 
 Artist linkinPark = new("Linkin Park");
 linkinPark.RateArtist(10);
@@ -16,8 +17,8 @@ theBeatles.RateArtist(7);
 Album album = new("Hybrid Theory", linkinPark.Name, 2000);
 
 Music music1 = new("Papercut", linkinPark.Name, album.Name, 185, true);
-Music music2 = new("One Step Closer", linkinPark.Name, album.Name, 157 , true);
-Music music3 = new("Crawling", linkinPark.Name, album.Name, 209 , false);
+Music music2 = new("One Step Closer", linkinPark.Name, album.Name, 157, true);
+Music music3 = new("Crawling", linkinPark.Name, album.Name, 209, false);
 Music music4 = new("In the End", linkinPark.Name, album.Name, 216, false);
 Music music5 = new("A Place for My Head", linkinPark.Name, album.Name, 185, false);
 
@@ -32,8 +33,8 @@ linkinPark.AddAlbum(album);
 album = new("Meteora", linkinPark.Name, 2003);
 
 music1 = new("Numb", linkinPark.Name, album.Name, 187, true);
-music2 = new("Somewhere I Belong", linkinPark.Name, album.Name, 220 , true);
-music3 = new("Breaking the Habit", linkinPark.Name, album.Name, 197 , false);
+music2 = new("Somewhere I Belong", linkinPark.Name, album.Name, 220, true);
+music3 = new("Breaking the Habit", linkinPark.Name, album.Name, 197, false);
 music4 = new("Faint", linkinPark.Name, album.Name, 162, false);
 music5 = new("From the Inside", linkinPark.Name, album.Name, 170, false);
 
@@ -85,122 +86,26 @@ void MenuOptions()
         case 0:
             break;
         case 1:
-            Register();
+            var menuRegister = new MenuRegister();
+            menuRegister.Execute(bandList);
+            MenuOptions();
             break;
         case 2:
-            ShowBands();
+            var menuListArtist = new MenuListArtist();
+            menuListArtist.Execute(bandList);
+            MenuOptions();
             break;
         case 3:
-            RateBands();
+            var menuRateArtist = new MenuRateArtist();
+            menuRateArtist.Execute(bandList);
+            MenuOptions();
             break;
         case 4:
-            ShowArtistDetails();
+            var menuInfo = new MenuInfo();
+            menuInfo.Execute(bandList);
+            MenuOptions();
             break;
     }
-
-}
-
-void Register()
-{
-    Console.Clear();
-    Console.WriteLine(@"
-█▀█ █▀▀ █▀▀ █ █▀ ▀█▀ █▀█ █▀█
-█▀▄ ██▄ █▄█ █ ▄█ ░█░ █▀▄ █▄█
-    ");
-
-    Console.Write("Digite o nome da banda que deseja registrar: ");
-    string name = Console.ReadLine()!;
-
-    if (bandList.ContainsKey(name))
-    {
-        Console.WriteLine("Banda já registrada!");
-        Thread.Sleep(2000);
-        Console.Clear();
-        MenuOptions();
-    }
-
-    Artist artist = new(name);
-    bandList.Add(name, artist);
-
-    Console.WriteLine($"A banda foi {name} registrada com sucesso");
-    Thread.Sleep(2000);
-    Console.Clear();
-    MenuOptions();
-
-}
-
-void ShowBands()
-{
-    Console.Clear();
-    Console.WriteLine(@"    
-█▀▀ ▀▄▀ █ █▄▄ █ █▀█
-██▄ █░█ █ █▄█ █ █▀▄
-    ");
-
-    foreach (var band in bandList)
-    {
-        Console.WriteLine($"Banda: {band.Key}");
-    }
-
-    Console.ReadKey();
-    Console.Clear();
-    MenuOptions();
-}
-
-void RateBands()
-{
-
-    Console.Clear();
-    Console.WriteLine(@"
-▄▀█ █░█ ▄▀█ █░░ █ ▄▀█ █▀█   █▄▄ ▄▀█ █▄░█ █▀▄ ▄▀█ █▀
-█▀█ ▀▄▀ █▀█ █▄▄ █ █▀█ █▀▄   █▄█ █▀█ █░▀█ █▄▀ █▀█ ▄█
-    ");
-    Console.Write("\nDigite o nome da banda que deseja avaliar: ");
-    string name = Console.ReadLine()!;
-
-    if (!bandList.TryGetValue(name, out Artist? value))
-    {
-        Console.WriteLine($"A banda {name} não foi encontrada");
-        Thread.Sleep(2000);
-        Console.Clear();
-        MenuOptions();
-        return;
-    }
-
-    Console.Write($"\nDigite a nota da banda {name}:");
-    int rate = int.Parse(Console.ReadLine()!);
-
-    bandList[name].RateArtist(rate);
-
-    Console.WriteLine($"\nA banda {name} foi avaliada com a nota {rate}");
-    Thread.Sleep(2000);
-    Console.Clear();
-    MenuOptions();
-
-}
-
-void ShowArtistDetails()
-{
-    Console.Clear();
-    Console.WriteLine(@"
-█ █▄░█ █▀▀ █▀█
-█ █░▀█ █▀░ █▄█
-    ");
-    Console.Write("\nDigite o nome da banda que deseja obter os detalhes: ");
-    string name = Console.ReadLine()!;
-    if (!bandList.TryGetValue(name, out Artist? value))
-    {
-        Console.WriteLine($"A banda {name} não foi encontrada");
-        Thread.Sleep(2000);
-        Console.Clear();
-        MenuOptions();
-    }
-
-    var artist = bandList[name];
-    Console.WriteLine($"\n{artist}");
-    Console.ReadKey();
-    Console.Clear();
-    MenuOptions();
 
 }
 

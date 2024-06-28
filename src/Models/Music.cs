@@ -1,4 +1,4 @@
-namespace ScreenSound;
+namespace ScreenSound.Models;
 
 class Music(string name, string artist, string album, int duration, bool available)
 {
@@ -14,3 +14,4 @@ class Music(string name, string artist, string album, int duration, bool availab
     }
 
 }
+
